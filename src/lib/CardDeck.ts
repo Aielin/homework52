@@ -14,6 +14,18 @@ class CardDeck {
             })
         })
     }
-}
 
+    getCard(): Card {
+        const getIndex = Math.floor(Math.random() * this.deck.length);
+        return this.deck.splice(getIndex, 1)[0];
+    }
+
+    getCards(howMany: number): Card[] {
+        const drawnCards: Card[] = [];
+        for ( let i = 0; i < howMany; i++ ) {
+            drawnCards.push(this.getCard());
+        }
+        return drawnCards;
+    }
+}
 export default CardDeck;
