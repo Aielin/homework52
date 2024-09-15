@@ -1,19 +1,14 @@
-import './cards.css'
+import './cards.css';
+import React from 'react';
+
 
 interface CardProps {
     rank: string;
-    suit: keyof Suits;
-}
-
-interface Suits {
-    diams: string;
-    hearts: string;
-    clubs: string;
-    spades: string;
+    suit: string;
 }
 
 const Card: React.FC<CardProps> = ({rank, suit}) => {
-    const suitsObj: Suits = {
+    const suitMap: {[key:string]: string} = {
         diams: '♦',
         hearts: '♥',
         clubs: '♣',
@@ -21,13 +16,14 @@ const Card: React.FC<CardProps> = ({rank, suit}) => {
     }
 
     return (
-          <span className="card rank-k diams">
+        <div className="playingCards faceImages">
+             <span className={`card rank-${rank.toLowerCase()} ${suit}`}>
               <span className="rank">{rank}</span>
-              <span className="suit">{suitsObj[suit]}</span>
+              <span className="suit">{suitMap[suit]}</span>
           </span>
+        </div>
     )
 };
-
 
 export default Card;
 
