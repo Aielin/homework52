@@ -23,9 +23,16 @@ class CardDeck {
     getCards(howMany: number): Card[] {
         const drawnCards: Card[] = [];
         for ( let i = 0; i < howMany; i++ ) {
-            drawnCards.push(this.getCard());
+            const card = this.getCard();
+            if (card){
+                drawnCards.push(card);
+            }
         }
         return drawnCards;
+    }
+
+    getRemainingCards(): number {
+        return this.deck.length;
     }
 }
 export default CardDeck;

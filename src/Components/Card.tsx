@@ -22,11 +22,10 @@ const Card: React.FC<CardProps> = ({rank, suit}) => {
               <span className="suit">{suitMap[suit]}</span>
           </span>
         </div>
-    )
+    );
 };
 
 export default Card;
-
 
 
 
