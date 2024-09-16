@@ -1,7 +1,7 @@
 import './App.css'
 import CardComponent from './Components/Card.tsx'
 import CardDeck from './lib/CardDeck.ts'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Card from './lib/Card.ts';
 import PokerHand from "./lib/PokerHand.ts";
 
@@ -12,26 +12,31 @@ const App: React.FC = () => {
     const [results, setResults] = useState<string | null>(null);
 
     const dealCards = () => {
-        if(deck.getRemainingCards() <= 0){
+        const remainingCards = deck.getRemainingCards();
+
+        if(remainingCards <= 0){
             setResults('Out of cards');
             setHand([]);
             return;
         }
 
-        if(deck.getRemainingCards() <= 5){
-            const cards = deck.getCards(deck.getRemainingCards());
-            setHand(cards);
-            setCardCount(deck.getRemainingCards());
-        } else {
-            const cards = deck.getCards(5);
-            setHand(cards);
-            setCardCount(deck.getRemainingCards());
-        }
+        const numOfCardsToDeal = Math.min(5, remainingCards);
+        const newHand = deck.getCards(numOfCardsToDeal);
 
-        const pokerHand = new PokerHand(hand);
+        const pokerHand = new PokerHand(newHand);
         const result = pokerHand.getOutCome();
+
+        setHand(newHand);
+        setCardCount(deck.getRemainingCards());
         setResults(result);
     };
+
+    useEffect(() => {
+        if (hand.length > 0){
+            const pokerHand = new PokerHand(hand);
+            setResults(pokerHand.getOutCome());
+        }
+    }, [hand]);
 
     return (
         <div>
