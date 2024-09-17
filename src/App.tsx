@@ -18,17 +18,17 @@ const App: React.FC = () => {
             return;
         }
 
+        let newHand: Card[] = [];
+
         if(deck.getRemainingCards() <= 5){
-            const cards = deck.getCards(deck.getRemainingCards());
-            setHand(cards);
+            newHand = deck.getCards(deck.getRemainingCards());
             setCardCount(deck.getRemainingCards());
         } else {
-            const cards = deck.getCards(5);
-            setHand(cards);
+            newHand = deck.getCards(5);
             setCardCount(deck.getRemainingCards());
         }
-
-        const pokerHand = new PokerHand(hand);
+        setHand(newHand);
+        const pokerHand = new PokerHand(newHand);
         const result = pokerHand.getOutCome();
         setResults(result);
     };
